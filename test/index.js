@@ -10,7 +10,7 @@ let template = require('../lib/template');
 
 function getVinylFile(file) {
     return new File({
-        path: path.resolve(__dirname, `${file}.bh.js`)
+        path: `${file}.bh.js`
     });
 }
 
