@@ -1,6 +1,6 @@
 {
   "name": "gulp-concat-bh",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Concats BH template files into one",
   "bugs": {
     "url": "https://github.com/1999/gulp-concat-bh/issues"

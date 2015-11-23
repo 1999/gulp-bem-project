@@ -27,10 +27,10 @@ gulp.task('bh-server', () => {
             'app/blocks/**/*.bh.js',
             'app/blocks/**/*.bh.server.js'
         ])
-        .pipe(concatBH('combined.bh.js'))
+        .pipe(concatBH('combined.bh.js', './relative/path/to/process/cwd'))
         .pipe(gulp.dest("./"));
 });
 ```
 
 ## Options
-The only argument is result relative file path.
+First argument is result relative file path. Second argument is base path (optional).

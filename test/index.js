@@ -6,7 +6,6 @@ let expect = require('chai').expect;
 
 let gulpConcatBH = require('../');
 let File = gutil.File;
-let template = require('../lib/template');
 
 function getVinylFile(file) {
     return new File({
@@ -27,20 +26,39 @@ describe('gulp-concat-bh', () => {
     it('should concat files and output expected structure', done => {
         let stream = gutil.noop();
         let myGulpConcatBH = gulpConcatBH('all.bh.js');
+        let blocks = ['user', 'award', 'page'];
 
         // now pipe input files
-        fillInputFiles(['user', 'award', 'page'], myGulpConcatBH);
+        fillInputFiles(blocks, myGulpConcatBH);
 
         myGulpConcatBH.once('data', file => {
             expect(path.basename(file.path)).to.be.equal('all.bh.js');
 
-            let expectedFileContents = template([
-                getVinylFile('user'),
-                getVinylFile('award'),
-                getVinylFile('page')
-            ]);
+            let fileContents = file.contents.toString('utf8');
+            for (let block of blocks) {
+                expect(fileContents).to.contain(`require('${block}.bh.js')(bh);`);
+            }
 
-            expect(file.contents.toString('utf8')).to.equal(expectedFileContents);
+            done();
+        });
+    });
+
+    it('should use base path to construct result URLs', done => {
+        let stream = gutil.noop();
+        let myGulpConcatBH = gulpConcatBH('all.bh.js', './relative/path/');
+        let blocks = ['user', 'award', 'page'];
+
+        // now pipe input files
+        fillInputFiles(blocks, myGulpConcatBH);
+
+        myGulpConcatBH.once('data', file => {
+            expect(path.basename(file.path)).to.be.equal('all.bh.js');
+
+            let fileContents = file.contents.toString('utf8');
+            for (let block of blocks) {
+                expect(fileContents).to.contain(`require('../../${block}.bh.js')(bh);`);
+            }
+
             done();
         });
     });
