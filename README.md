@@ -42,12 +42,28 @@ gulp.task('bh-server', () => {
 let gulp = require('gulp');
 let clientBHEngine = require('gulp-bem-project')['bh-client-engine'];
 
-gulp.task('bh-client', () => {
+gulp.task('bh-engine', () => {
     gulp
         .src('node_modules/bh/lib/bh.js')
         // first and only argument is object with dependencies
         // it is optional
         .pipe(clientBHEngine({i18n: 'i18n'}))
+        .pipe(gulp.dest("./"));
+});
+```
+
+## Get YModule-wrapped BH templates
+```javascript
+'use strict';
+
+let gulp = require('gulp');
+let clientBHMatchers = require('gulp-bem-project')['bh-client-matchers'];
+
+gulp.task('bh-client', ['bh-engine'], () => {
+    gulp
+        .src('app/blocks/**/*.bh.client.js')
+        .pipe(clientBHMatchers())
+        .pipe(concat('all.bh.client.js'))
         .pipe(gulp.dest("./"));
 });
 ```

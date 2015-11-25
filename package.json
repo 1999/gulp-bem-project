@@ -1,6 +1,6 @@
 {
   "name": "gulp-bem-project",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Gulp plugins for modern BEM projects",
   "bugs": {
     "url": "https://github.com/1999/gulp-bem-project/issues"

@@ -1,3 +1,7 @@
+## 0.4.0
+
+ * **new**: `bh-client-matchers` plugin which wraps client BH templates into ymodule wrappers
+
 ## 0.3.0
 
  * **breaking change**: `gulp-concat-bh` unpublished, use `gulp-bem-project` instead
