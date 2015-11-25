@@ -73,12 +73,12 @@ gulp.task('bh-client', ['bh-engine'], () => {
 'use strict';
 
 let gulp = require('gulp');
-let wrapFilePath = require('gulp-bem-project')['wrap-file-path'];
+let wrapWithPath = require('gulp-bem-project')['wrap-with-path'];
 
 gulp.task('css', () => {
     gulp
         .src('app/blocks/**/*.css')
-        .pipe(wrapFilePath())
+        .pipe(wrapWithPath())
         .pipe(concat('all.css'))
         .pipe(gulp.dest('./'));
 });

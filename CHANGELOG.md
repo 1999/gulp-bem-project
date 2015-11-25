@@ -7,7 +7,7 @@
  * **breaking change**: `gulp-concat-bh` unpublished, use `gulp-bem-project` instead
  * **new**: `bh-server-concat` plugin (inside `gulp-bem-project`)
  * **new**: `bh-client-engine` plugin which wraps BH engine into ymodule
- * **new**: `wrap-file-path` plugin which wraps files' contents into multiline comments with file path
+ * **new**: `wrap-with-path` plugin which wraps files' contents into multiline comments with file path
 
 ## 0.2.0
 
