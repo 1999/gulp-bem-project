@@ -4,7 +4,7 @@ let path = require('path');
 let gutil = require('gulp-util');
 let expect = require('chai').expect;
 
-let gulpConcatBH = require('../');
+let gulpConcatBH = require('../')['bh-server-concat'];
 let File = gutil.File;
 
 function getVinylFile(file) {
@@ -22,7 +22,7 @@ function fillInputFiles(files, stream) {
     stream.end();
 }
 
-describe('gulp-concat-bh', () => {
+describe('bh-server-concat', () => {
     it('should concat files and output expected structure', done => {
         let stream = gutil.noop();
         let myGulpConcatBH = gulpConcatBH('all.bh.js');

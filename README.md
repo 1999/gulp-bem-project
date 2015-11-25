@@ -1,25 +1,26 @@
-# gulp-concat-bh
+# gulp-bem-project
 
-[![Build Status](https://img.shields.io/travis/1999/gulp-concat-bh.svg?style=flat)](https://travis-ci.org/1999/gulp-concat-bh)
-[![Dependency Status](http://img.shields.io/david/1999/gulp-concat-bh.svg?style=flat)](https://david-dm.org/1999/gulp-concat-bh#info=dependencies)
-[![DevDependency Status](http://img.shields.io/david/dev/1999/gulp-concat-bh.svg?style=flat)](https://david-dm.org/1999/gulp-concat-bh#info=devDependencies)
+[![Build Status](https://img.shields.io/travis/1999/gulp-bem-project.svg?style=flat)](https://travis-ci.org/1999/gulp-bem-project)
+[![Dependency Status](http://img.shields.io/david/1999/gulp-bem-project.svg?style=flat)](https://david-dm.org/1999/gulp-bem-project#info=dependencies)
+[![DevDependency Status](http://img.shields.io/david/dev/1999/gulp-bem-project.svg?style=flat)](https://david-dm.org/1999/gulp-bem-project#info=devDependencies)
 
-Gulp plugin which concats BH template files into one.
+Gulp plugins for modern BEM projects.
 
 # Install
 
 ```
-npm install gulp-concat-bh --save-dev
+npm install gulp-bem-project --save-dev
 ```
 
 # Basic Usage
+## Concatenate BH server templates
+Concats BH template files into one. Emits one JS file which exports a function. This function takes BH engine object as the only parameter.
 
 ```javascript
 'use strict';
 
 let gulp = require('gulp');
-let sass = require('gulp-sass');
-let concatBH = require('gulp-concat-bh');
+let concatBH = require('gulp-bem-project')['bh-server-concat'];
 
 gulp.task('bh-server', () => {
     gulp
@@ -27,10 +28,55 @@ gulp.task('bh-server', () => {
             'app/blocks/**/*.bh.js',
             'app/blocks/**/*.bh.server.js'
         ])
-        .pipe(concatBH('combined.bh.js', './relative/path/to/process/cwd'))
+        // first argument is result relative file path
+        // second argument is base path (optional)
+        .pipe(concatBH('combined.bh.js', './relative/path/to/your/app'))
         .pipe(gulp.dest("./"));
 });
 ```
 
-## Options
-First argument is result relative file path. Second argument is base path (optional).
+## Get YModule-wrapped BH engine
+```javascript
+'use strict';
+
+let gulp = require('gulp');
+let clientBHEngine = require('gulp-bem-project')['bh-client-engine'];
+
+gulp.task('bh-client', () => {
+    gulp
+        .src('node_modules/bh/lib/bh.js')
+        // first and only argument is object with dependencies
+        // it is optional
+        .pipe(clientBHEngine({i18n: 'i18n'}))
+        .pipe(gulp.dest("./"));
+});
+```
+
+## Wrap files' contents into multiline comments with file path
+```javascript
+'use strict';
+
+let gulp = require('gulp');
+let wrapFilePath = require('gulp-bem-project')['wrap-file-path'];
+
+gulp.task('css', () => {
+    gulp
+        .src('app/blocks/**/*.css')
+        .pipe(wrapFilePath())
+        .pipe(concat('all.css'))
+        .pipe(gulp.dest('./'));
+});
+
+// all.css will contain something like:
+/* begin: /home/user/www/project-name/app/blocks/award/award.css */
+// ...selectors here...
+/* end: /home/user/www/project-name/app/blocks/award/award.css */
+
+/* begin: /home/user/www/project-name/app/blocks/user/user.css */
+// ...selectors here...
+/* end: /home/user/www/project-name/app/blocks/user/user.css */
+
+/* begin: /home/user/www/project-name/app/blocks/wrapper/wrapper.css */
+// ...selectors here...
+/* end: /home/user/www/project-name/app/blocks/wrapper/wrapper.css */
+```
