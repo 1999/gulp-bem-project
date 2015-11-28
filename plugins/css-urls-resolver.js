@@ -32,7 +32,8 @@ function gulpCSSResolver(base) {
                     return substr;
                 }
 
-                return `url("${path.relative(base, beginPath)}")`;
+                url = path.resolve(path.dirname(beginPath), url);
+                return `url("${path.relative(base, url)}")`;
             });
         });
 

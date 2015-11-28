@@ -64,8 +64,8 @@ describe('css-urls-resolver', () => {
         return collectStreamFiles(myPluginStream).then(files => {
             let fileContents = files[0].contents.toString('utf8');
 
-            expect(fileContents).to.contain('url("../bower_components/bem-core/common.blocks/clearfix/clearfix.css")');
-            expect(fileContents).to.contain('url("../blocks/award/award.scss")');
+            expect(fileContents).to.contain('url("../bower_components/bem-core/common.blocks/clearfix/sample.png")');
+            expect(fileContents).to.contain('url("../blocks/award/oscar.png")');
         });
     });
 
@@ -80,7 +80,7 @@ describe('css-urls-resolver', () => {
         return collectStreamFiles(myPluginStream).then(files => {
             let fileContents = files[0].contents.toString('utf8');
 
-            expect(fileContents).to.contain('url("../bower_components/bem-core/common.blocks/clearfix/clearfix.css")');
+            expect(fileContents).to.contain('url("../bower_components/bem-core/common.blocks/clearfix/sample.png")');
             expect(fileContents).to.contain('url(https://example.com/sample.png)');
             expect(fileContents).to.contain('url(//yastatic.net/sample.png)');
             expect(fileContents).to.contain(`url("${SVG}")`);

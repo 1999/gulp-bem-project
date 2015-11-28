@@ -1,3 +1,7 @@
+## 0.5.1
+
+ * fixed: `css-urls-resolver` result URLs used containing CSS file path instead of file itself
+
 ## 0.5.0
 
  * **new**: `css-urls-resolver` plugin which resolves URLS inside CSS based on `wrap-with-path` plugin
