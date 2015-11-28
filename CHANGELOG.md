@@ -1,3 +1,7 @@
+## 0.5.0
+
+ * **new**: `css-urls-resolver` plugin which resolves URLS inside CSS based on `wrap-with-path` plugin
+
 ## 0.4.0
 
  * **new**: `bh-client-matchers` plugin which wraps client BH templates into ymodule wrappers

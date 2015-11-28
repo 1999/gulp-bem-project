@@ -96,3 +96,23 @@ gulp.task('css', () => {
 // ...selectors here...
 /* end: /home/user/www/project-name/app/blocks/wrapper/wrapper.css */
 ```
+
+## Resolves URLs inside CSS based on `wrap-with-path` plugin
+```javascript
+'use strict';
+
+let gulp = require('gulp');
+let wrapWithPath = require('gulp-bem-project')['wrap-with-path'];
+let cssResolver = require('gulp-bem-project')['css-urls-resolver'];
+let sass = require('gulp-sass');
+
+gulp.task('css', ['bh-engine'], () => {
+    gulp
+        .src('app/blocks/**/*.scss')
+        .pipe(wrapWithPath())
+        .pipe(concat())
+        .pipe(sass())
+        .pipe(cssResolver())
+        .pipe(gulp.dest("./"));
+});
+```
