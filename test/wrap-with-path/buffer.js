@@ -4,9 +4,9 @@ let path = require('path');
 let gutil = require('gulp-util');
 let expect = require('chai').expect;
 
-let wrapWithPath = require('../')['wrap-with-path'];
+let wrapWithPath = require('../../')['wrap-with-path'];
 let File = gutil.File;
-let collectStreamFiles = require('../lib/collect-stream-files');
+let collectStreamFiles = require('../../lib/collect-stream-files');
 
 const SAMPLE_FILE_CONTENTS = '* { margin: 0; }\n';
 
@@ -30,7 +30,7 @@ function fillInputFiles(files, stream) {
     stream.end();
 }
 
-describe('wrap-with-path', () => {
+describe('wrap-with-path (buffer support)', () => {
     it('should produce expected output', () => {
         let stream = gutil.noop();
         let myPluginStream = wrapWithPath();

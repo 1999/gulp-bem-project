@@ -1,3 +1,7 @@
+## 0.6.0
+
+ * **new**: `wrap-with-path` plugin now supports stream based vinyl files
+
 ## 0.5.1
 
  * fixed: `css-urls-resolver` result URLs used containing CSS file path instead of file itself

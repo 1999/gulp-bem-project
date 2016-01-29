@@ -3,7 +3,32 @@
 let gutil = require('gulp-util');
 let through2 = require('through2');
 
-const PLUGIN_NAME = 'gulp-bem-project => wrap-with-path';
+function getPrefixString(filePath) {
+    return `/* begin: ${filePath} */\n`;
+}
+
+function getPostfixString(filePath) {
+    return `/* end: ${filePath} */\n`;
+}
+
+/**
+ * Wraps file content stream with prefix and postfix
+ *
+ * @param {Vinyl} file
+ * @return {Stream}
+ */
+function wrapFileContentsStream(file) {
+    const outputStream = through2();
+
+    outputStream.write(getPrefixString(file.path));
+    file.contents.pipe(outputStream);
+
+    process.nextTick(() => {
+        outputStream.write(getPostfixString(file.path));
+    });
+
+    return outputStream;
+}
 
 /**
  * Wraps file contents with comments with file path
@@ -18,15 +43,14 @@ function wrapWithPath() {
         }
 
         if (file.isStream()) {
-            callback(new gutil.PluginError(PLUGIN_NAME, 'Streaming is not supported'));
-            return;
+            file.contents = wrapFileContentsStream(file);
+        } else {
+            file.contents = Buffer.concat([
+                new Buffer(getPrefixString(file.path)),
+                file.contents,
+                new Buffer(getPostfixString(file.path))
+            ]);
         }
-
-        file.contents = Buffer.concat([
-            new Buffer(`/* begin: ${file.path} */\n`),
-            file.contents,
-            new Buffer(`/* end: ${file.path} */\n`)
-        ]);
 
         this.push(file);
         callback();
