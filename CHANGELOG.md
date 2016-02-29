@@ -1,3 +1,7 @@
+## 0.6.1
+
+ * fixed: `bh-client-matchers` plugin doesn't produce corrupted output for templates with special characters
+
 ## 0.6.0
 
  * **new**: `wrap-with-path` plugin now supports stream based vinyl files

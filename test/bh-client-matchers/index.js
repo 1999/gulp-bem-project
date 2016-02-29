@@ -4,9 +4,10 @@ let path = require('path');
 let gutil = require('gulp-util');
 let expect = require('chai').expect;
 
-let bhClientMatchers = require('../')['bh-client-matchers'];
+let bhClientMatchers = require('../../')['bh-client-matchers'];
 let File = gutil.File;
-let collectStreamFiles = require('../lib/collect-stream-files');
+let collectStreamFiles = require('../../lib/collect-stream-files');
+const specialCharactersTemplate = require('./special-characters');
 
 function clientTemplate(bh) {
     bh.match('block', function (ctx, json) {
@@ -57,6 +58,26 @@ describe('bh-client-matchers', () => {
             expect(files[1].contents.toString('utf8')).to.contain(clientTemplate + '');
             expect(files[2].contents.toString('utf8').startsWith('modules.require(\'bh\', function (bh) {')).to.be.true;
             expect(files[2].contents.toString('utf8')).to.contain(clientTemplate + '');
+        });
+    });
+
+    it('should work with special characters', () => {
+        let myPluginStream = bhClientMatchers();
+        const vinylFile = new File({
+            path: resolveFilePath('block'),
+            contents: new Buffer(specialCharactersTemplate + '')
+        });
+
+        myPluginStream.write(vinylFile);
+        myPluginStream.end();
+
+        // run test when stream got all files
+        return collectStreamFiles(myPluginStream).then(files => {
+            expect(files).to.have.length(1);
+
+            const contents = files[0].contents.toString('utf8');
+            const matches = contents.match(/\}\)\(obj\)/g);
+            expect(matches).to.have.length(1);
         });
     });
 });
