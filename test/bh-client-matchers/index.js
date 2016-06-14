@@ -1,5 +1,6 @@
 'use strict';
 
+let fs = require('fs');
 let path = require('path');
 let gutil = require('gulp-util');
 let expect = require('chai').expect;
@@ -7,7 +8,7 @@ let expect = require('chai').expect;
 let bhClientMatchers = require('../../')['bh-client-matchers'];
 let File = gutil.File;
 let collectStreamFiles = require('../../lib/collect-stream-files');
-const specialCharactersTemplate = require('./special-characters');
+const specialCharactersTemplate = fs.readFileSync(path.join(__dirname, 'special-characters.js'), {encoding: 'utf8'});
 
 function clientTemplate(bh) {
     bh.match('block', function (ctx, json) {
@@ -37,7 +38,6 @@ function fillInputFiles(files, stream) {
 
 describe('bh-client-matchers', () => {
     it('should produce expected output', () => {
-        let stream = gutil.noop();
         let myPluginStream = bhClientMatchers();
         let blocks = ['user', 'award', 'page'];
 
@@ -65,7 +65,7 @@ describe('bh-client-matchers', () => {
         let myPluginStream = bhClientMatchers();
         const vinylFile = new File({
             path: resolveFilePath('block'),
-            contents: new Buffer(specialCharactersTemplate + '')
+            contents: new Buffer(specialCharactersTemplate)
         });
 
         myPluginStream.write(vinylFile);
