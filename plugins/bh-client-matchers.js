@@ -1,6 +1,5 @@
 'use strict';
 
-let gutil = require('gulp-util');
 let through2 = require('through2');
 
 function getWrappedTemplate(fileContents) {
