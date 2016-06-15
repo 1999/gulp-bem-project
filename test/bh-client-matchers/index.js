@@ -76,7 +76,7 @@ describe('bh-client-matchers', () => {
             expect(files).to.have.length(1);
 
             const contents = files[0].contents.toString('utf8');
-            const matches = contents.match(/\}\)\(obj\)/g);
+            const matches = contents.match(/module\.exports\(bh\)/g);
             expect(matches).to.have.length(1);
         });
     });

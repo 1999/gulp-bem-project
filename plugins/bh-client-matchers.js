@@ -4,15 +4,13 @@ let through2 = require('through2');
 
 function getWrappedTemplate(fileContents) {
     return `modules.require('bh', function (bh) {
-        var obj = {};
+        var module = {};
 
-        (function (module) {
-            // start
-            ${fileContents}
-            // and now end
-        })(obj);
+        // start
+        ${fileContents}
+        // and now end
 
-        obj.exports && obj.exports(bh);
+        module.exports && module.exports(bh);
     })`;
 }
 
