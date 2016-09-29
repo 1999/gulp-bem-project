@@ -12,6 +12,9 @@ let template = `modules.define('bh', {dependencies}, function ({provide}) {
         jsAttrScheme: 'json'
     });
 
+    // https://github.com/bem/bh/pull/176
+    BH.prototype.constructor = BH;
+
     {provideDeps}
 
     provide(bh);
