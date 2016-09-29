@@ -1,11 +1,13 @@
 {
   "name": "gulp-bem-project",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Gulp plugins for modern BEM projects",
   "bugs": {
     "url": "https://github.com/1999/gulp-bem-project/issues"
   },
-  "maintainers": "Dmitry Sorin <dsorin@yandex-team.ru>",
+  "maintainers": [
+    "Dmitry Sorin <dsorin@yandex-team.ru>"
+  ],
   "repository": [
     {
       "type": "git",

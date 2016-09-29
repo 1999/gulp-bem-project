@@ -1,3 +1,7 @@
+## 0.6.2
+
+ * `bh-client-engine` plugin sets BH prototype `constructor` property to BH constructor itself
+
 ## 0.6.1
 
  * fixed: `bh-client-matchers` plugin doesn't produce corrupted output for templates with special characters
