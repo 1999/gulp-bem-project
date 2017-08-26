@@ -21,18 +21,18 @@
   ],
   "main": "./index.js",
   "dependencies": {
-    "gulp-util": "3.0.7",
-    "through2": "2.0.0"
+    "gulp-util": "3.0.8",
+    "through2": "2.0.3"
   },
   "license": "MIT",
   "engines": {
     "node": ">=4.0"
   },
   "devDependencies": {
-    "chai": "3.4.1",
-    "jscs": "2.5.0",
-    "jshint": "2.8.0",
-    "mocha": "2.3.3"
+    "chai": "4.1.1",
+    "jscs": "3.0.7",
+    "jshint": "2.9.5",
+    "mocha": "3.5.0"
   },
   "scripts": {
     "lint": "./node_modules/.bin/jshint -c .jshintrc index.js && ./node_modules/.bin/jscs -c .jscsrc index.js",
